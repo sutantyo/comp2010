@@ -13,7 +13,7 @@ public class Trees {
 		test.insert(1);
 		test.insert(3);
 		
-		print(test.root);
+		traversal(test.root);
 		System.out.println();
 		/*
 		System.out.println(test.inorder());
@@ -34,7 +34,7 @@ public class Trees {
 	}
 	
 	public static int countLeaves(Node root){
-		if (root.left == null && root.right == null)
+		if(root.left == null && root.right == null)
 			return 1;
 		else if (root.left == null)
 			return countLeaves(root.right);
@@ -42,12 +42,21 @@ public class Trees {
 			return countLeaves(root.left);
 		else
 			return countLeaves(root.left) + countLeaves(root.right);
+		
+	}
+	
+	public static void traversal(Node root){
+		if (root == null)
+			return;
+		traversal(root.left);
+		traversal(root.right);
+		System.out.print(root.key + " ");
 	}
 	
 	public static int findMax(Node root){
 		if (root == null)
 			return 0;
-		return Math.max(root.key,Math.max(countNodes(root.left),countNodes(root.right)));
+		return Math.max(root.key,Math.max(findMax(root.left),findMax(root.right)));
 	}
 
 	public static int sumNodes(Node root){
@@ -59,9 +68,9 @@ public class Trees {
 	public static void printBetween(Node root, int a, int b){
 		if (root == null)
 			return;
+		printBetween(root.left,a,b);
 		if (root.key >= a && root.key <= b)
 			System.out.print(root.key + " ");
-		printBetween(root.left,a,b);
 		printBetween(root.right,a,b);
 	}
 	
